@@ -1,4 +1,4 @@
-version: "2.1"
+version: "3"
 services:
   db:
     container_name: db_server
@@ -11,21 +11,15 @@ services:
     environment:
       MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
       MYSQL_DATABASE: 'openhub'  
-    healthcheck:
-      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
-      interval: 5s
-      timeout: 20s
-      retries: 10
 
   myapp:
     depends_on:
-      db:
-        condition: service_healthy
+      - db
     build: .
     links:
       - 'db:db_server'
     ports:
       - "8000:8000"
     volumes:
-        - .:/openhub
-    command: bash -c "python manage.py makemigrations && python manage.py migrate && python etl.py && python manage.py runserver 0.0.0.0:8000"
+        - .:/openhub      
+    command: bash -c "wait-for-it.sh db_server:3306 && python manage.py makemigrations && python manage.py migrate && python etl.py && python manage.py runserver 0.0.0.0:8000"

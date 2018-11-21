@@ -7,3 +7,5 @@
  COPY requirements.txt /openhub/
  RUN pip install -r requirements.txt
  ADD . /openhub/
+ COPY wait-for-it.sh /usr/local/bin/
+ RUN chmod +x /usr/local/bin/wait-for-it.sh
