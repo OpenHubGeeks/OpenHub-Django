@@ -1,0 +1,31 @@
+version: "2.1"
+services:
+  db:
+    container_name: db_server
+    hostname: db_server
+    image: mysql:5.7.16
+    ports:
+      - 3306:3306
+    expose:
+      - 3306
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
+      MYSQL_DATABASE: 'openhub'  
+    healthcheck:
+      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+      interval: 5s
+      timeout: 20s
+      retries: 10
+
+  myapp:
+    depends_on:
+      db:
+        condition: service_healthy
+    build: .
+    links:
+      - 'db:db_server'
+    ports:
+      - "8000:8000"
+    volumes:
+        - .:/openhub
+    command: bash -c "python manage.py makemigrations && python manage.py migrate && python etl.py && python manage.py runserver 0.0.0.0:8000"

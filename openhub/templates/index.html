@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="utf-8" />
+    <link rel="apple-touch-icon" sizes="76x76" href="{% static 'img/apple-icon.png' %}">
+    <link rel="icon" type="image/png" href="{% static 'img/favicon.png' %}">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <title>ThoughtWorks | Open Source Projects</title>
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
+    <script src="{% static 'js/core/jquery.min.js' %}"></script>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
+    <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet" />
+    <link href="{% static 'css/style.css' %}" rel="stylesheet" />
+    <link href="{% static 'css/now-ui-dashboard.css' %}" rel="stylesheet" />
+    <link href="{% static 'demo/demo.css' %}" rel="stylesheet" />
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
+</head>
+
+<body class="">
+    <div class="wrapper ">
+    <div class="sidebar" data-color="orange">
+      <div class="logo">
+          <a href="http://www.thoughtworks.com" class="simple-text logo-normal">
+              <img src="{% static 'img/logo.png' %}" \>
+          </a>
+      </div>
+      <div class="sidebar-wrapper">
+        <ul class="nav">
+          <li class="active">
+            <a href="/openhub/">
+              <i class="now-ui-icons design_app"></i>
+              <p>Dashboard</p>
+            </a>
+          </li>
+          <li>
+              <a href="/openhub/allprojects">
+                  <i class="now-ui-icons education_atom"></i>
+                  <p>Explore Projects</p>
+              </a>
+          </li>
+
+        </ul>
+      </div>
+    </div>
+        <div class="main-panel">
+            <div class="panel-header panel-header-lg">
+                <canvas id="bigDashboardChart"></canvas>
+            </div>
+            <div class="content">
+                <div class="row">
+                    <div class="col-lg-4">
+                        <div class="card card-chart">
+                            <div class="card-header">
+                                <h5 class="card-category"></h5>
+                                <h4 class="card-title">Contributors | All Offices</h4>
+                            </div>
+                            <div class="card-body">
+                                    <canvas id="contributors-chart" width="200" height="200"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6">
+                        <div class="card card-chart">
+                            <div class="card-header">
+                                <h5 class="card-category">Techstack Distribution</h5>
+                                <h4 class="card-title">Techstacks Diversity</h4>
+                            </div>
+                            <div class="card-body">
+                                <canvas id="techstack-chart" width="200" height="200"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6">
+                        <div class="card card-chart">
+                            <div class="card-header">
+                                <h5 class="card-category">Most Active</h5>
+                                <h4 class="card-title">Most Active Projects</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="chart-area">
+                                    <canvas id="barChartSimpleGradientsNumbers"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="card card-tasks">
+                      <div class="card-header">
+                        <h4 class="card-title">New Contributors</h4>
+                      </div>
+                      <div class="card-body">
+                        <div class="table-full-width table-responsive">
+                            {% for project in projects %}
+                            <img src="{{ project.contributor.user_photo.url }}" alt="Avatar" class="user-logo">
+                            {% endfor %}
+                        </div>
+                      </div>
+                      <div class="card-footer">
+                        <hr>
+                      </div>
+                  </div>
+                  </div>
+                  <div class="col-md-6">
+                      <div class="card">
+                        <div class="card-header">
+                            <h4 class="card-title">Top Contributors</h4>
+                        </div>
+                          <div class="card-body">
+                            <div class="table-full-width table-responsive">
+                                {% for project in projects %}
+                                <img src="{{ project.contributor.user_photo.url }}" alt="Avatar" class="user-logo">
+                                {% endfor %}
+                            </div>
+                          </div>
+                          <div class="card-footer">
+                            <hr>
+                          </div>
+                      </div>
+                  </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="{% static 'js/core/jquery.min.js' %}"></script>
+<script src="{% static 'js/core/popper.min.js' %}"></script>
+<script src="{% static 'js/core/bootstrap.min.js' %}"></script>
+<script src="{% static 'js/plugins/perfect-scrollbar.jquery.min.js' %}"></script>
+<script src="{% static 'js/plugins/chartjs.min.js' %}"></script>
+<script src="{% static 'js/plugins/bootstrap-notify.js' %}"></script>
+<script src="{% static 'js/now-ui-dashboard.js' %}"></script>
+<script src="{% static 'demo/demo.js' %}"></script>
+<script>
+    $(document).ready(function() {
+        // Javascript method's body can be found in assets/js/demos.js
+        demo.initDashboardPageCharts();
+    });
+</script>
+<script>
+    var endpoint = "api/office-dist-data/";
+    var labels = [];
+    var data = [];
+    $.ajax({
+        method: "GET",
+        url: endpoint,
+        success: function(response){
+
+            $.each(response, function(index, value){
+                labels.push(value.office);
+                data.push(value.count);
+            });
+            Chart.defaults.scale.gridLines.display = false;
+            Chart.defaults.global.legend.display = false;
+            var ctx = document.getElementById("contributors-chart");
+            var myChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: ' - Contributors',
+                        data: data,
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(153, 102, 255, 0.2)',
+                            'rgba(255, 159, 64, 0.2)'
+                        ],
+                        borderColor: [
+                            'rgba(255,99,132,1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                }
+            });
+        },
+        error: function(error_data){
+            console.log("Error")
+            console.log(error_data)
+        },
+
+    })
+</script>
+
+<script>
+    var endpoint = "api/techstack-data/";
+    var labels_techstack = [];
+    var data_techstack = [];
+    $.ajax({
+        method: "GET",
+        url: endpoint,
+        success: function(response){
+
+            $.each(response, function(index, value){
+                labels_techstack.push(value.project_techstack);
+                data_techstack.push(value.total);
+            });
+            Chart.defaults.scale.gridLines.display = false;
+            Chart.defaults.global.legend.display = false;
+            var ctx = document.getElementById("techstack-chart");
+            var myChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labels_techstack,
+                    datasets: [{
+                        label: ' - Techstacks',
+                        data: data_techstack,
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(153, 102, 255, 0.2)',
+                            'rgba(255, 159, 64, 0.2)'
+                        ],
+                        borderColor: [
+                            'rgba(255,99,132,1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                }
+            });
+        },
+        error: function(error_data){
+            console.log("Error")
+            console.log(error_data)
+        },
+
+    })
+</script>
+
+<script>
+
+</script>
+</html>
