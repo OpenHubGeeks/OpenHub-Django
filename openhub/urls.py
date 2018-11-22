@@ -8,3 +8,4 @@ urlpatterns = [
     url(r'^api/office-dist-data/$', views.OfficeDistribution.as_view()),
     url(r'^api/git-stats/$', views.get_github_stats, name='git-data')
 ]
+// commented to break CI
