@@ -7,8 +7,8 @@
 
 ### To run the project :
 ```python
-git clone https://github.com/jaydeepc/DjangoHub
-cd DjangoHub
+https://github.com/OpenHubGeeks/OpenHub-Django
+cd OpenHub-Django
 docker-compose up
 ```
 - visit http://localhost:8000
