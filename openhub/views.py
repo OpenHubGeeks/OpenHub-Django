@@ -1,17 +1,15 @@
 from django.db.models import Count
-from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
 from .models import RepoDetails, Contributors
 import json
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
-import requests
-from urllib.parse import urlsplit
+from django.http import JsonResponse
+from django.core.paginator import Paginator
 
 
 def index(request):
-
     projects = RepoDetails.objects.all()
     context = {
         'projects': projects
@@ -20,13 +18,21 @@ def index(request):
 
 
 def projects(request):
-
     projects = RepoDetails.objects.all()
 
     context = {
         'projects': projects
     }
     return render(request, 'projects.html', context)
+
+
+def projectsPaginated(request):
+    pageNo = request.GET.get('pageNo', 1)
+    pageSize = request.GET.get('pageSize', 20)
+    repos_cursor = RepoDetails.objects.all()
+    paginator = Paginator(repos_cursor, pageSize)
+    repos = paginator.page(pageNo).object_list.values()
+    return JsonResponse(list(repos), safe=False)
 
 
 @api_view(['GET'])
@@ -115,7 +121,6 @@ def get_github_stats(request):
         "Pairing Matrix": 10,
         "jabba": 639
     }
-
 
     return Response(response_data)
 
