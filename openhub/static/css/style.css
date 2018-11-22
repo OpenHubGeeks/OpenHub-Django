@@ -35,8 +35,6 @@ p {
   overflow: hidden;
   opacity: 0;
   margin-top: 70px;
-  -webkit-transform: translate(0%, -50%);
-  transform: translate(0%, -50%);
   -webkit-border-radius: 50%;
   border-radius: 50%;
   -webkit-box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16), 0px 3px 6px rgba(0, 0, 0, 0.23);
@@ -470,4 +468,11 @@ p {
       border-radius: 4px;
     }
   }
+}
+
+
+/*---------- overrides -----------*/
+.app-content {
+  padding: 30px 30px;
+  min-height: calc(100vh - 123px);
 }
