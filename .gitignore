@@ -34,6 +34,8 @@ __pycache__/
 
 # Distribution / packaging
 .Python
+django_venv/
+openhub/migrations/
 env/
 build/
 develop-eggs/
