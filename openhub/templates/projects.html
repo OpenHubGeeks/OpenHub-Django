@@ -75,28 +75,8 @@
         </div>
       </nav>
       <!-- End Navbar -->
-      <div class="panel-header panel-header-sm">
-      </div>
-      <div class="app-content">
-        {% for project in projects %}
-            <div style="float: left;">
-              <aside class="profile-card">
-                  <header>
-                    <a target="_blank" href="#">
-                      <img src="{{ project.contributor.user_photo.url }}" class="hoverZoomLink">
-                    </a>
-                    <h1>{{ project.project_name }}</h1>
-                    <h2>{{ project.project_techstack }}</h2>
-                  </header>
-                  <div class="profile-bio">
-                    <p>
-                      {{ project.project_description }}
-                    </p>
-                  </div>
-              </aside>
-            </div>
-        {% endfor %}
-      </div>
+      <div class="panel-header panel-header-sm"></div>
+      <div class="app-content" id="app-content"></div>
     </div>
     </div>
 
@@ -113,6 +93,7 @@
 <script src="{% static 'js/plugins/bootstrap-notify.js' %}"></script>
 <!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
 <script src="{% static 'js/now-ui-dashboard.js' %}"></script>
+<script src="{% static 'js/projectPage.js' %}"></script>
 <!-- Now Ui Dashboard DEMO methods, don't include it in your project! -->
 <script src="{% static 'demo/demo.js' %}"></script>
 </body>
