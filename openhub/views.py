@@ -8,6 +8,7 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view
 import requests
 from urllib.parse import urlsplit
+from django.db.models import Q
 
 
 def index(request):
@@ -21,7 +22,11 @@ def index(request):
 
 def projects(request):
 
-    projects = RepoDetails.objects.all()
+    query = request.GET.get('q')
+    if query is None:
+        projects = RepoDetails.objects.all()
+    else:
+        projects = RepoDetails.objects.filter(Q(project_name__icontains=query) | Q(project_description__icontains=query) | Q(project_techstack__icontains=query))
 
     context = {
         'projects': projects

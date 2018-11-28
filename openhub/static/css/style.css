@@ -475,4 +475,5 @@ p {
 .app-content {
   padding: 30px 30px;
   min-height: calc(100vh - 123px);
+  text-align: center
 }

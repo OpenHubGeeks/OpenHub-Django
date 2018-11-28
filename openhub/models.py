@@ -19,9 +19,8 @@ class Contributors(models.Model):
 class RepoDetails(models.Model):
 
     project_id = models.AutoField(primary_key=True)
-    project_name = models.CharField(max_length=25)
+    project_name = models.CharField(max_length=500)
     vcs_url = models.CharField(max_length=500)
-    project_name = models.CharField(max_length=100)
     project_description = models.TextField()
     project_techstack = models.CharField(max_length=500)
     contributor = models.ForeignKey(Contributors, on_delete=models.CASCADE, default="")
@@ -29,6 +28,7 @@ class RepoDetails(models.Model):
     class Meta:
         managed = True
         db_table = 'openhub_repos'
+
 
 
 
