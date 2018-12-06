@@ -81,11 +81,11 @@
       <div class="app-content">
           {% if projects|length != 0 %}
                 {% for project in projects %}
-                    <div style="float: left;">
+                    <div class="row-card" style="float: left;">
                       <aside class="profile-card">
                           <header>
                             <a target="_blank" href="#">
-                              <img src="{{ project.contributor.user_photo.url }}" class="hoverZoomLink">
+                              <img src="{{ project.contributor.user_photo.url }}" alt="Avatar" class="user-logo">
                             </a>
                             <h1>{{ project.project_name }}</h1>
                             <h2>{{ project.project_techstack }}</h2>
@@ -110,15 +110,8 @@
 <script src="{% static 'js/core/popper.min.js' %}"></script>
 <script src="{% static 'js/core/bootstrap.min.js' %}"></script>
 <script src="{% static 'js/plugins/perfect-scrollbar.jquery.min.js' %}"></script>
-<!--  Google Maps Plugin    -->
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCJwoo8-isfT4FxFmNzpmsC5_fcSokhkYE"></script>
-<!-- Chart JS -->
 <script src="{% static 'js/plugins/chartjs.min.js' %}"></script>
-<!--  Notifications Plugin    -->
-<script src="{% static 'js/plugins/bootstrap-notify.js' %}"></script>
-<!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
 <script src="{% static 'js/now-ui-dashboard.js' %}"></script>
-<!-- Now Ui Dashboard DEMO methods, don't include it in your project! -->
 <script src="{% static 'demo/demo.js' %}"></script>
 </body>
 

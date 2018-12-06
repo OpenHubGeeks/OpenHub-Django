@@ -9,7 +9,7 @@ class Contributors(models.Model):
     git_username = models.CharField(max_length=255)
     country = models.CharField(max_length=25)
     office = models.CharField(max_length=25)
-    user_photo = models.ImageField(upload_to='profile_image', blank=True, default="profile_image/default.png")
+    user_photo = models.ImageField(upload_to='profile_image', blank=True)
 
     class Meta:
         managed = True
