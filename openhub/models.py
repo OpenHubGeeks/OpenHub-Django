@@ -23,6 +23,9 @@ class RepoDetails(models.Model):
     vcs_url = models.CharField(max_length=500)
     project_description = models.TextField()
     project_techstack = models.CharField(max_length=500)
+    total_stars = models.IntegerField(null=True)
+    total_issues = models.IntegerField(null=True)
+    total_forks = models.IntegerField(null=True)
     contributor = models.ForeignKey(Contributors, on_delete=models.CASCADE, default="")
 
     class Meta:
