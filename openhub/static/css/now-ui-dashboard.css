@@ -2815,7 +2815,9 @@ Created using IcoMoon - icomoon.io
   .main-panel > .content {
     padding: 261px 30px 30px;
     min-height: calc(100vh - 123px);
-    margin-top: -30px; }
+    margin-top: -232px;
+    position: absolute;
+  }
   .main-panel > .navbar {
     margin-bottom: 0; }
   .main-panel .header {

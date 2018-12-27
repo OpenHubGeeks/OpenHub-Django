@@ -52,7 +52,6 @@
     </div>
         <div class="main-panel">
             <div class="panel-header panel-header-lg">
-                <!--<canvas id="bigDashboardChart"></canvas>-->
             </div>
             <div class="app-content">
                 <div class="row">
@@ -113,7 +112,9 @@
                                 {% for contributor in contributors %}
                                 <div id="flex-container">
                                   <div class="flex-item">
+                                    <a href="{% url 'user' contributor.contributor__cid %}">
                                     <img src="/media/{{ contributor.contributor__user_photo }}" alt="Avatar" class="user-logo">
+                                    </a>
                                     <div class="name"><p><b>{{ contributor.contributor__user_firstname }}</b></p></div>
                                     <p>{{ contributor.total }} - Projects</p>
                                   </div>
@@ -244,7 +245,7 @@
     })
 </script>
 <script>
-    var endpoint = "api/git-stats?count=5";
+    var endpoint = "api/get-stars";
     var labels_project = [];
     var data_count = [];
 
@@ -253,10 +254,10 @@
         url: endpoint,
         success: function(response){
 
-            response_list = response.top_stars
+            response_list = response
             for (var i = 0; i < response_list.length; i++) {
-                labels_project.push(response_list[i][0])
-                data_count.push(response_list[i][1])
+                labels_project.push(response_list[i].project_name)
+                data_count.push(response_list[i].total_stars)
             }
 
             Chart.defaults.scale.gridLines.display = false;
@@ -309,7 +310,7 @@
 
 </script>
 <script>
-    var endpoint = "api/git-stats?count=5";
+    var endpoint = "api/get-issues";
     var project_lbl = [];
     var count_issues = [];
 
@@ -318,10 +319,10 @@
         url: endpoint,
         success: function(response){
 
-            response_list = response.top_issues
+            response_list = response
             for (var i = 0; i < response_list.length; i++) {
-                project_lbl.push(response_list[i][0])
-                count_issues.push(response_list[i][1])
+                project_lbl.push(response_list[i].project_name)
+                count_issues.push(response_list[i].total_issues)
             }
 
             Chart.defaults.scale.gridLines.display = false;
@@ -375,7 +376,7 @@
 </script>
 
 <script>
-    var endpoint = "api/git-stats?count=5";
+    var endpoint = "api/get-forks";
     var project_lbl_forks = [];
     var count_forks = [];
 
@@ -384,10 +385,10 @@
         url: endpoint,
         success: function(response){
 
-            response_list = response.top_forks
+            response_list = response
             for (var i = 0; i < response_list.length; i++) {
-                project_lbl_forks.push(response_list[i][0])
-                count_forks.push(response_list[i][1])
+                project_lbl_forks.push(response_list[i].project_name)
+                count_forks.push(response_list[i].total_forks)
             }
 
             Chart.defaults.scale.gridLines.display = false;

@@ -87,14 +87,27 @@
                             <a target="_blank" href="#">
                               <img src="{{ project.contributor.user_photo.url }}" alt="Avatar" class="user-logo">
                             </a>
-                            <h1>{{ project.project_name }}</h1>
-                            <h2>{{ project.project_techstack }}</h2>
+                            <h1><b>{{ project.project_name }}</b></h1>
+                            <h2><b>{{ project.project_techstack }}</b></h2>
                           </header>
                           <div class="profile-bio">
                             <p>
                               {{ project.project_description }}
                             </p>
                           </div>
+                            <ul class="profile-social-links">
+                                <li>
+                                    <div class="stars" title="Number of stars">{{ project.total_stars }}</div>
+                                </li>
+
+                                <li>
+                                    <div class="forks" title="Number of forks">{{ project.total_forks }}</div>
+                                </li>
+
+                                <li>
+                                    <div class="issues" title="Number of issues">{{ project.total_issues }}</div>
+                                </li>
+                            </ul>
                       </aside>
                     </div>
                 {% endfor %}

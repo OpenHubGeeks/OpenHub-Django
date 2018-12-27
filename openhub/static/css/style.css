@@ -60,6 +60,7 @@ p {
 
 .profile-card header h1 {
   color: #FF5722;
+  font-size: 15px !important;
 }
 
 .profile-card header a {
@@ -91,7 +92,7 @@ p {
 }
 
 .profile-card header a > img {
-  width: 48%;
+  width: 46%;
   max-width: 100%;
   -webkit-border-radius: 50%;
   border-radius: 50%;
@@ -142,7 +143,7 @@ p {
   margin: -5px 0px 0px 0px;
   padding: 0px;
   float: left;
-  width: 25%;
+  width: 33%;
   text-align: center;
 }
 
@@ -427,18 +428,26 @@ p {
     display: block;
     float: none;
     border-right: none;
+    background-color: #163459;
+    color: white;
   }
   .profile-card .profile-bio {
     width: auto;
-    height: auto;
-    padding: 15px 20px 30px 20px;
     display: block;
     float: none;
+    margin: -8%;
+    background-color: #14335a;
+    color: white;
+    padding-top: 9px;
   }
   .profile-social-links {
     width: 100%;
     display: block;
     float: none;
+    padding: 20px;
+    background-color: #101010;
+    color: white;
+    height: inherit;
   }
   @ -webkit-keyframes materia {
     0% {
@@ -511,4 +520,78 @@ p {
 .flex-item {
     width: 106px;
     height: 161px;
+}
+
+.profile-bio p {
+    margin: -35px;
+    margin-left: 29px !important;
+    margin-right: 28px !important;
+    font-size: 11px;
+
+}
+
+.profile-card h1 {
+    font-size: 17px !important;
+}
+
+.profile-card h2 {
+    font-size: 10px !important;
+}
+
+.star-count {
+
+}
+
+.stars {
+
+    background-image: url(http://icons.iconarchive.com/icons/paomedia/small-n-flat/16/heart-icon.png);
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+.forks {
+
+    background-image: url(https://d2eip9sf3oo6c2.cloudfront.net/tags/images/000/000/638/thumb/gitlogo.png);
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+.issues {
+
+    background-image: url(https://image.flaticon.com/icons/svg/1254/1254753.svg);
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+.open-header-project{
+
+    background-color: white;
+    width: -webkit-fill-available;
+    height: inherit;
+    float: left;
+    border-radius: 5px;
+}
+
+.open-header-contributors{
+    background-color: #ec1212;
+    width: 32%;
+    margin-left: 25px;
+    overflow: hidden;
+}
+
+.open-header-techstacks{
+    background-color: #0773ff;
+    width: 31%;
+    margin-right: 25px;
+}
+
+.open-header-project, .open-header-contributors, .open-header-techstacks {
+
+}
+
+.col-md-4{
+    display: content;
+}
+
+.card-body {
+    min-height: 205px !important;
 }
