@@ -449,7 +449,7 @@ p {
     color: white;
     height: inherit;
   }
-  @ -webkit-keyframes materia {
+  @-webkit-keyframes materia {
     0% {
       background: #E0E0E0;
     }
@@ -482,13 +482,16 @@ p {
 
 /*---------- overrides -----------*/
 .app-content {
-  padding: 30px 30px;
   min-height: calc(100vh - 123px);
-  text-align: center
+  text-align: center;
+  display: flex;
+  flex-wrap: wrap;
+ justify-content: space-around
 }
 
 .row-card{
-    padding-bottom: 4px;
+    margin: 20px 10px 0;
+    justify-self: center
 }
 
 .card-contributor {
